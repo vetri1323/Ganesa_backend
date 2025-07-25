@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>API Test</h1>
+    <button onclick="testAPI()">Test /api/customers</button>
+    <pre id="output">Click the button to test the API</pre>
+
+    <script>
+        async function testAPI() {
+            const output = document.getElementById('output');
+            output.textContent = 'Testing /api/customers...';
+            
+            try {
+                const response = await axios.get('http://localhost:5000/api/customers');
+                output.textContent = 'Response: ' + JSON.stringify(response.data, null, 2);
+            } catch (error) {
+                output.textContent = 'Error: ' + error.message;
+                if (error.response) {
+                    output.textContent += '\nStatus: ' + error.response.status;
+                    output.textContent += '\nData: ' + JSON.stringify(error.response.data, null, 2);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
